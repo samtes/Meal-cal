@@ -1,0 +1,38 @@
+#!/usr/bin/env ruby
+
+require_relative './lib/zellers_month'
+require_relative './lib/zellers_year'
+
+unless ARGV[0]
+  puts "You must provide a month or a year"
+  exit
+end
+
+if ARGV.length == 2 && ARGV[1].length == 4
+  if ARGV[1].to_i < 1800 or ARGV[1].to_i > 3000
+    puts "Argument must be for a date between the years 1800 and 3000"
+    exit
+  else
+    calendar = Zellers_month.new(ARGV[0], ARGV[1])
+    calendar.print_month
+  end
+else
+  if ARGV.length == 2 && ARGV[0].length == 4
+    if ARGV[0].to_i < 1800 or ARGV[0].to_i > 3000
+      puts "Argument must be for a date between the years 1800 and 3000"
+      exit
+    else
+      if ARGV[1].to_i % 2 != 0
+        puts "For correct formatting please enter an even number between 1 and 12."
+        exit
+      else
+        calendar = Zellers_year.new(ARGV[0], ARGV[1])
+        calendar.print_year
+      end
+    end
+  else
+    calendar = Zellers_year.new(ARGV[0])
+    calendar.print_year
+  end
+end
+
